@@ -18,10 +18,21 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const { conn, Tipo } = require('./src/db.js');
+const axios = require("axios");
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: true }).then( async () => {
+
+  let tipos= await axios("https://pokeapi.co/api/v2/type");
+
+  await Tipo.bulkCreate(
+      tipos.data.results && tipos.data.results.map((e) => ({
+          name: e.name,
+        }
+        ))
+    );
+
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
