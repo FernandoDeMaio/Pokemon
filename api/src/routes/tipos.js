@@ -4,6 +4,7 @@ const router = Router();
 const { Tipo } = require("../db.js");
 
 router.get('/', async (req, res)=>{
+
     let tiposR = await Tipo.findAll();
     res.json(tiposR); 
 });

@@ -8,8 +8,8 @@ const tiposRoutes= require('./tipos');
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.use( '/pokemons', pokemonsRoutes );
-router.use( '/tipos', tiposRoutes);
+router.use( '/pokemons', pokemonsRoutes);
+router.use( '/types', tiposRoutes);
 
 
 module.exports = router;
