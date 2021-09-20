@@ -8,37 +8,62 @@ const { Pokemon } = require ("../db");
 router.get('/', async function (req, res){
     
     const { name } = req.query;
-
-        // 40 Pokemons desde la api y pokemons BD
-    let pokemonsApi = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=20&limit=5");
-    let pokemonUrl = pokemonsApi.data.results;
-    let pokeBD = await Pokemon.findAll();
-        
-    var arr=[];
-        
-    for(h of pokemonUrl){
-            let poke = h.url;
-            let poke2 = await axios.get(`${poke}`);
-            arr.push({
-                id: poke2.data.id,
-                name: poke2.data.name,
-                image: poke2.data.sprites.front_default,
-                types: poke2.data.types
-            })
-        }
-        let pokeBDApi =arr.concat(pokeBD);
-
-        //Busqueda por name
-        try{
+    console.log(name);
             if(!name){
-                res.json(pokeBDApi);
+                 // 40 Pokemons desde la api y pokemons BD
+                let pokemonsApi = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=20&limit=5");
+                let pokemonUrl = pokemonsApi.data.results;
+                let pokeBD = await Pokemon.findAll();
+                    
+                var arr=[];
+                    
+                for(h of pokemonUrl){
+                        let poke = h.url;
+                        let poke2 = await axios.get(`${poke}`);
+                        arr.push({
+                            id: poke2.data.id,
+                            name: poke2.data.name,
+                            image: poke2.data.sprites.front_default,
+                            types: poke2.data.types
+                        })
+                    }
+                    let pokeBDApi =arr.concat(pokeBD);
+                    res.json(pokeBDApi);
             }else{
-               let pokeRes = pokeBDApi.find(pokemon => pokemon.name == name)
-                pokeRes?res.json(pokeRes):res.send("No encontramos el Pokemon");
-            }
-    }catch(error){
-        res.status(400).send(error);
-    }
+            
+          
+                let busqueda= await Pokemon.findOne({where: {name: name}});
+            
+                if(busqueda){
+                    try{
+                        res.json(busqueda);
+
+                    }catch(error){
+                        res.status(400).send("No se encuentra el Pokemon");
+                    }
+                    
+                }else{
+ 
+                    try{
+
+                        let pokeName = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`) 
+                      
+                       
+                         let respuesta ={
+                             id: pokeName.data.id,
+                             name: pokeName.data.name,
+                             image: pokeName.data.sprites.front_default,
+                             types: pokeName.data.types
+                         }
+                         respuesta && res.json(respuesta)
+                        
+                        
+                    }catch(error){
+                        res.status(400).send("No se encuentra el Pokemon");
+                    }
+               }
+            } 
+        
 });
 
 
@@ -47,26 +72,38 @@ router.get('/:id', async (req, res)=> {
     const { id } = req.params;
     
     if(id.length>4){
-        Pokemon.findOne({where: { id: id }});
-    }else{
-       let pokeId = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`) 
-        let respuesta ={
-            id: pokeId.data.id,
-            name: pokeId.data.name,
-            image: pokeId.data.sprites.front_default,
-            types: pokeId.data.types
-        }
-        respuesta?res.send(respuesta): res.send("No se encuentra el Pokemon");
-    }
 
-  
+        try{
+
+            let pokemonDbId = await Pokemon.findOne({where: { id: id }});
+            pokemonDbId && res.send(pokemonDbId)
+
+        }catch(error){
+            res.status(400).send("No se encuentra el Pokemon");
+        }
+
+    }else{
+
+        try{
+
+            let pokeId = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`) 
+             let respuesta ={
+                 id: pokeId.data.id,
+                 name: pokeId.data.name,
+                 image: pokeId.data.sprites.front_default,
+                 types: pokeId.data.types
+             }
+             respuesta && res.send(respuesta)
+
+        }catch(error){
+            res.status(400).send("No se encuentra el Pokemon");
+        }
+    }
 })
 
 
-
-
  router.post('/', async (req, res)=>{
-    const {name, hp, atack, defense, speed, height, wight}= req.body;
+    const {name, hp, atack, defense, speed, height, wight, types}= req.body;
     try{
         const PokCreate= await Pokemon.create({
            id: uuidv4(), 
@@ -76,17 +113,14 @@ router.get('/:id', async (req, res)=> {
            defense,
            speed,
            height,
-           wight
-        },{ fields: ["id","name","hp","atack","defense","speed","height","wight"] })
+           wight,
+           types
+        },{ fields: ["id","name","hp","atack","defense","speed","height","wight","types"] })
         
         PokCreate && res.json(PokCreate);
     }catch(error){
         res.status(400);
     }
  });
-
-
-
-
 
 module.exports = router;
