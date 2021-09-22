@@ -8,27 +8,44 @@ const { Pokemon } = require ("../db");
 router.get('/', async function (req, res){
     
     const { name } = req.query;
-    console.log(name);
+  
             if(!name){
                  // 40 Pokemons desde la api y pokemons BD
-                let pokemonsApi = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=20&limit=5");
-                let pokemonUrl = pokemonsApi.data.results;
+                 //try{ 
+
+        
                 let pokeBD = await Pokemon.findAll();
-                    
-                var arr=[];
-                    
-                for(h of pokemonUrl){
-                        let poke = h.url;
-                        let poke2 = await axios.get(`${poke}`);
-                        arr.push({
-                            id: poke2.data.id,
-                            name: poke2.data.name,
-                            image: poke2.data.sprites.front_default,
-                            types: poke2.data.types
-                        })
+                let pokeBd=pokeBD.map((el)=>{
+                    return {
+                            id: el.id,
+                            name: el.name,
+                            image: el.image,
+                            type: el.types 
                     }
-                    let pokeBDApi =arr.concat(pokeBD);
-                    res.json(pokeBDApi);
+                }
+             )   
+                    
+                let respuesta = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=5&offset=0");
+                let pokemonApi = await Promise.all(respuesta.data.results.map(async (el)=>{
+                    
+                    const pokemonUrl = await axios.get(el.url);
+                                    obj={
+                                        id : pokemonUrl.data.id,
+                                        name : pokemonUrl.data.name,
+                                        image : pokemonUrl.data.sprites.front_default,
+                                        types : pokemonUrl.data.types.map(el=> el.type.name)
+                                    }
+                                        return obj;
+                }));
+            
+                pokeBdApi= pokemonApi.concat(pokeBd);
+                
+                res.json(pokeBdApi);
+               
+            // }catch(error){
+            //     res.status(400).send("No se encuentra el listado de Pokemons");
+            // }
+                   
             }else{
             
           
@@ -92,6 +109,7 @@ router.get('/:id', async (req, res)=> {
                  name: pokeId.data.name,
                  image: pokeId.data.sprites.front_default,
                  types: pokeId.data.types
+
              }
              respuesta && res.send(respuesta)
 
@@ -103,11 +121,12 @@ router.get('/:id', async (req, res)=> {
 
 
  router.post('/', async (req, res)=>{
-    const {name, hp, atack, defense, speed, height, wight, types}= req.body;
+    const {name, image, hp, atack, defense, speed, height, wight, types}= req.body;
     try{
         const PokCreate= await Pokemon.create({
            id: uuidv4(), 
            name,
+           image,
            hp,
            atack,
            defense,
@@ -115,7 +134,7 @@ router.get('/:id', async (req, res)=> {
            height,
            wight,
            types
-        },{ fields: ["id","name","hp","atack","defense","speed","height","wight","types"] })
+        },{ fields: ["id","name","image","hp","atack","defense","speed","height","wight","types"] })
         
         PokCreate && res.json(PokCreate);
     }catch(error){
