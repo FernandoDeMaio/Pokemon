@@ -1,0 +1,43 @@
+nav {
+
+align-content: left;
+height: 180px;
+background: linear-gradient(to bottom, red, rgb(43, 48, 45));
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+}
+
+
+#logo{
+  height: 30%; 
+}
+
+#logo:hover{
+    transform: rotate(-15deg);
+    transition: 1s;
+}
+
+input{
+  margin: 4% 0;
+  height: 2em;
+  width:  30%;
+  border:inherit;
+  border-radius: 10px;
+  font-family: PokemonClassic;
+  }
+
+button{
+   
+    margin: 4% 0;
+    height: 2em;
+    width:  10em;
+    justify-content: center;
+    border-radius: 10px;  
+    background-color: rgb(93, 5, 233);
+    color: white;
+    font-family: PokemonClassic;
+    text-align: center;
+    border-collapse: collapse;
+    border-color:grey;
+}

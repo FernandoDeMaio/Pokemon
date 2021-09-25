@@ -3,7 +3,11 @@ import axios from 'axios';
 
 
 export const GET_POKEMONS = "GET_POKEMONS"
+export const GET_POKEMONSDETAIL = "GET_POKEMONSDETAIL"
+export const GET_POKEMONSNAME = "GET_POKEMONSNAME"
 
+
+//--------------------Todos los pokemons----------------------//
 export function getPokemons(){
     return dispatch =>{
         return axios.get('http://localhost:3001/pokemons/').then(obj =>{
@@ -15,4 +19,28 @@ export function getPokemons(){
     }
     
 } 
+//--------------------Pokemons por ID----------------------//
+export function getPokemonsDetail(id){
+    return dispatch =>{
+        return axios.get(`http://localhost:3001/pokemons/${id}`).then(obj =>{
+            dispatch({
+                type:GET_POKEMONSDETAIL,
+                payload:obj.data
+            })
+        })
+    }
+    
+} 
 
+//--------------------Pokemons por Nombre----------------------//
+export function getPokemonName (name){
+return dispatch =>{
+
+    return axios.get(`http://localhost:3001/pokemons/?name=${name}`).then(obj =>{
+    dispatch({
+        type: GET_POKEMONSNAME,
+        payload: obj.data
+            })
+        })
+}
+}

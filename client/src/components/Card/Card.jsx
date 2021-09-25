@@ -1,14 +1,15 @@
 import React from "react";
 import "./Card.css";
 
-const Card = ({ name, types, image }) => {
+const Card = ({ name, type, image }) => {
   return (
     <div className="contenedor">
       <figure>
+       
         <img src={image} alt="" />
       </figure>
       <h1>{name}</h1>
-      <p>{types} </p>
+      <h1>{type} </h1>
      
     </div>
   );

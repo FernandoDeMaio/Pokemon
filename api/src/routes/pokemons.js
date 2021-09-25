@@ -2,7 +2,7 @@ const axios = require("axios");
 const { Router } = require("express");
 const { v4: uuidv4 } = require('uuid');
 const router = Router();
-const { Pokemon } = require ("../db");
+const { Pokemon, Tipo } = require ("../db");
 
 
 router.get('/', async function (req, res){
@@ -14,13 +14,14 @@ router.get('/', async function (req, res){
                  //try{ 
 
         
-                let pokeBD = await Pokemon.findAll();
+                let pokeBD = await Pokemon.findAll({include:{model:Tipo}});
                 let pokeBd=pokeBD.map((el)=>{
                     return {
                             id: el.id,
                             name: el.name,
                             image: el.image,
-                            type: el.types 
+                            types: el.tipos.map(el => el.name)
+                           
                     }
                 }
              )   
@@ -70,7 +71,13 @@ router.get('/', async function (req, res){
                              id: pokeName.data.id,
                              name: pokeName.data.name,
                              image: pokeName.data.sprites.front_default,
-                             types: pokeName.data.types
+                             types: pokeName.data.types,
+                             hp: pokeName.data.stats[0].base_stat,
+                             atack: pokeName.data.stats[1].base_stat,
+                             defense: pokeName.data.stats[2].base_stat,
+                             speed: pokeName.data.stats[5].base_stat,
+                             height: pokeName.data.height,
+                             weight: pokeName.data.weight
                          }
                          respuesta && res.json(respuesta)
                         
@@ -108,7 +115,13 @@ router.get('/:id', async (req, res)=> {
                  id: pokeId.data.id,
                  name: pokeId.data.name,
                  image: pokeId.data.sprites.front_default,
-                 types: pokeId.data.types
+                 types: pokeId.data.types,
+                 hp: pokeId.data.stats[0].base_stat,
+                 atack: pokeId.data.stats[1].base_stat,
+                 defense: pokeId.data.stats[2].base_stat,
+                 speed: pokeId.data.stats[5].base_stat,
+                 height: pokeId.data.height,
+                 weight: pokeId.data.weight
 
              }
              respuesta && res.send(respuesta)
@@ -121,7 +134,7 @@ router.get('/:id', async (req, res)=> {
 
 
  router.post('/', async (req, res)=>{
-    const {name, image, hp, atack, defense, speed, height, wight, types}= req.body;
+    const {name, image, hp, atack, defense, speed, height, weight, types}= req.body;
     try{
         const PokCreate= await Pokemon.create({
            id: uuidv4(), 
@@ -132,10 +145,15 @@ router.get('/:id', async (req, res)=> {
            defense,
            speed,
            height,
-           wight,
-           types
-        },{ fields: ["id","name","image","hp","atack","defense","speed","height","wight","types"] })
+           weight,
+           
+        },{ fields: ["id","name","image","hp","atack","defense","speed","height","weight"] })
         
+        for(let i=0; i<types.length;i++){
+
+            let idTipe= await Tipo.findOne({where:{name: types[i]}})
+            await PokCreate.addTipo(idTipe);
+        }
         PokCreate && res.json(PokCreate);
     }catch(error){
         res.status(400);

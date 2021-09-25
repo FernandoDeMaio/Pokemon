@@ -1,25 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Card from "../Card/Card";
-
+import SearchBar from "../SearchBar/SearchBar";
+import { useState } from "react";
+import ShowPokemons from "../ShowPokemons/ShowPokemons.jsx";
+import ShowSearch from "../ShowSearch/ShowSearch";
 
 const Home = () => {
-    const pokemon = useSelector((state) => state.pokemons);
+   
+    
+    const [name, setName] = useState("");
+
     return (
-      <div classname="contenedorH">
-        <h2>Hola</h2>
-        {pokemon?.map((poke) => {
-          return (
-            <Link className="Link" to={`/pokeDetail/${poke.id}`}>
-              <Card
-                image={poke?.image}
-                name={poke?.name}
-                type={poke?.types}
-              />
-            </Link>
-          );
-        })}
+      <div>
+        <SearchBar name={name} setName={setName} />
+        {
+          name ==""?<ShowPokemons/>:<ShowSearch/>
+        }     
       </div>
     );
   };
