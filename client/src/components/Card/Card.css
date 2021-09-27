@@ -1,0 +1,18 @@
+.card{
+height: 250px;
+width: 200px;
+background-color: seagreen;
+margin:25px;
+display: inline-block;
+border-radius: 15px;
+}
+.h5Card{
+color: white;
+text-decoration: none;
+font-size: 20px;
+}
+.spanCard{
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}

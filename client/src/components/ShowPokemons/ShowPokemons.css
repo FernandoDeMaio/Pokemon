@@ -1,0 +1,7 @@
+.cardsPokemons{
+    margin: auto auto;
+    display: inline-table;
+    align-items: center;
+    width: 80%;
+    columns:6;
+    }

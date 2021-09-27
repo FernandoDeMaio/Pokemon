@@ -26,7 +26,7 @@ router.get('/', async function (req, res){
                 }
              )   
                     
-                let respuesta = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=5&offset=0");
+                let respuesta = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=2&offset=0");
                 let pokemonApi = await Promise.all(respuesta.data.results.map(async (el)=>{
                     
                     const pokemonUrl = await axios.get(el.url);
@@ -71,7 +71,7 @@ router.get('/', async function (req, res){
                              id: pokeName.data.id,
                              name: pokeName.data.name,
                              image: pokeName.data.sprites.front_default,
-                             types: pokeName.data.types,
+                             types: pokeName.data.types.map(el=> el.type.name),
                              hp: pokeName.data.stats[0].base_stat,
                              atack: pokeName.data.stats[1].base_stat,
                              defense: pokeName.data.stats[2].base_stat,
@@ -115,7 +115,7 @@ router.get('/:id', async (req, res)=> {
                  id: pokeId.data.id,
                  name: pokeId.data.name,
                  image: pokeId.data.sprites.front_default,
-                 types: pokeId.data.types,
+                 types: pokeId.data.types.map(el=> el.type.name),
                  hp: pokeId.data.stats[0].base_stat,
                  atack: pokeId.data.stats[1].base_stat,
                  defense: pokeId.data.stats[2].base_stat,

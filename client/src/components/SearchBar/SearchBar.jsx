@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../NavBar/NavBar.css"
+import "../NavBar/NavBar.css";
 import { useDispatch } from "react-redux";
 import { getPokemonName } from "../../actions";
 
@@ -9,6 +9,7 @@ const SearchBar = ({name, setName})=> {
      
         
             function OnChange(e){
+                
                 setName(e.target.value);
                 
             }
@@ -22,7 +23,7 @@ const SearchBar = ({name, setName})=> {
     return <div>
         
         <input  onChange={OnChange} placeholder="   Busca tu Pókemon!!"></input>
-        <button className= {style.buttonIn} onClick={OnSubmit}>Buscar</button>
+        <button className= "" onClick={OnSubmit}>Buscar</button>
            
         </div>
     }

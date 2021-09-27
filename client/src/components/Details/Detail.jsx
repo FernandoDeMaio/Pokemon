@@ -17,7 +17,7 @@ const Detail = () => {
       },[]);
     
     return (
-      <div className="contenedor">
+      <div className="">
 
         <Models
         image={pokeDetail?.image}
@@ -31,15 +31,7 @@ const Detail = () => {
         types={pokeDetail?.types}
         
         />
-        {/* <figure><img src={pokeDetail.image} alt="" /></figure>
-        <h1>{pokeDetail.name}</h1>
-        <p>{pokeDetail.hp}</p>
-        {/* <span>{pokeDetail.atack}</span>
-        <span>{pokeDetail.defense}</span>
-        <span>{pokeDetail.speed}</span>
-        <span>{pokeDetail.height}</span>
-        <span>{pokeDetail.weight}</span>
-        */} 
+        
       </div>
     );
   };

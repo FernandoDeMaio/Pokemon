@@ -1,4 +1,4 @@
-import {GET_POKEMONS, GET_POKEMONSDETAIL, GET_POKEMONSNAME} from "../actions";
+import {GET_POKEMONS, GET_POKEMONSDETAIL, GET_POKEMONSNAME, GET_TYPES} from "../actions";
 
  const initialState = {
    pokemons:[],
@@ -13,6 +13,7 @@ const reducer = (state = initialState, action) => {
    case GET_POKEMONS:return {...state, pokemons: action.payload }
    case GET_POKEMONSDETAIL: return {...state, pokemonsDetail: action.payload}
    case GET_POKEMONSNAME: return {...state, pokemonsName: action.payload}
+   case GET_TYPES: return {...state, tipos: action.payload}
       default:
      return state 
   }

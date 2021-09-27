@@ -1,16 +1,16 @@
 import React from "react";
-import "./Card.css";
+import "./Card.css"
+const henry = "../../complements/images/henry.jpg"
 
 const Card = ({ name, type, image }) => {
   return (
-    <div className="contenedor">
-      <figure>
-       
+    <div className="card">
+      <figure className="figure">
         <img src={image} alt="" />
       </figure>
-      <h1>{name}</h1>
-      <h1>{type} </h1>
-     
+      <h5 className="h5Card">{name}</h5>
+      <span className="spanCard">{type}</span>
+      
     </div>
   );
 };

@@ -11,7 +11,6 @@ function ShowSearch() {
     return (
         <div>
         {
-          
             <Link className="Link" to={`/pokeDetail/${poke.id}`}>
              <Card
              image={poke.image}

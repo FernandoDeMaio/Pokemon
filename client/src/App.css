@@ -3,12 +3,14 @@
   src: url('./complements/fuentes/PokemonClassic.ttf') format('truetype');
 }
 
-  
+body{
+  background-color: rgb(43, 48, 45);
+}
 
 .App {
   text-align: center;
   font-family: "PokemonClassic";
-  background-color: rgb(43, 48, 45);
+  
 }
 
 .App-logo {

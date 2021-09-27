@@ -5,6 +5,7 @@ import axios from 'axios';
 export const GET_POKEMONS = "GET_POKEMONS"
 export const GET_POKEMONSDETAIL = "GET_POKEMONSDETAIL"
 export const GET_POKEMONSNAME = "GET_POKEMONSNAME"
+export const GET_TYPES ="GET_TYPES"
 
 
 //--------------------Todos los pokemons----------------------//
@@ -44,3 +45,15 @@ return dispatch =>{
         })
 }
 }
+
+//----------------------------Tipos-----------------------------//
+export function getTypes (){
+    return dispatch =>{
+        return axios.get(`http://localhost:3001/types`).then(obj =>{
+        dispatch({
+            type: GET_TYPES,
+            payload: obj.data
+                })
+            })
+    }
+    }
