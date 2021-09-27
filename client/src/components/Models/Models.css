@@ -1,0 +1,32 @@
+.contenedor-detalle{
+    overflow: hidden;
+    
+    width: 60%;
+    border-radius: 30px;
+    margin: 50px auto;
+}
+
+.img-detalle{
+    background-image:url("../../complements/images/fondoIndividual.png");
+    background-size:100%;
+    background-repeat: no-repeat;
+    
+    float: left;
+    overflow: hidden;
+    width: 50%;
+}
+
+.ul-Detalle{
+text-align: left;
+    width: 30%;
+    margin-top: 0px;
+    float: left;
+    list-style-type: none;
+    color: white;
+}
+
+.img-PokemonDetail{
+    height: 250px;
+    position:relative;
+    
+}

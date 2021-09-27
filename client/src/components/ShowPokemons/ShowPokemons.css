@@ -5,3 +5,15 @@
     width: 80%;
     columns:6;
     }
+
+
+    .btn-paginado{
+        margin: 0px 10px;
+        height: 40px;
+        width:  150px;
+        border-radius: 10px;  
+        background-color: rgb(93, 5, 233);
+        color: white;
+        font-family: PokemonClassic;
+        border-color:grey;
+      }

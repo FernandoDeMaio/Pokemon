@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getTypes } from "../../actions"
 
 
+
+
 const Forms = () => {
 
   const dispatch = useDispatch();
@@ -12,8 +14,9 @@ const Forms = () => {
     dispatch(getTypes())
   },[]);
 
-  const tipo = useSelector((state) => state.tipos);
+  const tipo = useSelector((state) => state.types);
   const [tipos, setTipos] = useState([]);
+  console.log(tipos)
   const [pokemon, setPokemons] = useState({
     name: "",
     image:"",
@@ -25,14 +28,14 @@ const Forms = () => {
     weight: "",
     types: tipos
   });
-//"id","name","image","hp","atack","defense","speed","height","weight"
+console.log(pokemon)
   function onInputChange(e) {
     setPokemons((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   }
   function onInputTypes({ target }) {
-    setTipos([...tipos, target.value]);
+  setTipos(pokemon.types.push(target.value));
   }
 
   async function handleSubmit(e) {
@@ -118,13 +121,13 @@ const Forms = () => {
 
         <input type="submit" />
       </form>
-{tipos.map(el => {
+{/* {tipo.map(el => {
  return( <span>{el}</span>)
 
 })
 
 
-}
+} */}
 
     </section>
   );

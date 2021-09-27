@@ -37,11 +37,11 @@ module.exports = (sequelize) => {
     weight: {
       type: DataTypes.STRING,
       //allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      //allowNull: false,
     }
-    // types:{
-    //   type: DataTypes.ARRAY(DataTypes.STRING),
-    //   //allowNull: false,
-    // }
     }, 
   { timestamps: false }
   );

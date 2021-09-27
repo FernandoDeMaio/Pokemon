@@ -1,5 +1,5 @@
 import React from "react";
-import "../NavBar/NavBar.css";
+import "./SearchBar.css";
 import { useDispatch } from "react-redux";
 import { getPokemonName } from "../../actions";
 
@@ -22,8 +22,8 @@ const SearchBar = ({name, setName})=> {
         
     return <div>
         
-        <input  onChange={OnChange} placeholder="   Busca tu Pókemon!!"></input>
-        <button className= "" onClick={OnSubmit}>Buscar</button>
+        <input  className="input-SB"onChange={OnChange} placeholder="   Busca tu Pókemon!!"></input>
+        <button className= "btn-busqueda" onClick={OnSubmit}>Buscar</button>
            
         </div>
     }

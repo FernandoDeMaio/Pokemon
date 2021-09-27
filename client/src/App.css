@@ -5,6 +5,8 @@
 
 body{
   background-color: rgb(43, 48, 45);
+  background-image: url("./complements/images/fondogeneral.png");
+  opacity: .8;
 }
 
 .App {

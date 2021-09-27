@@ -6,16 +6,24 @@ import { Link } from "react-router-dom";
 
 const Navbar = ()=> {
     
-return <nav className="">
+return <nav className="barra">
     <figure>
-    <Link className="Link" to={`/home`}> 
-    <img className="" src={pokePNG} alt="" />
+    <Link className="Link-NV" to={`/home`}> 
+    <img className="logo" src={pokePNG} alt="" />
     </Link>
     </figure>
-    <Link className="Link" to={`/Forms`}> 
-    <button className= "searchButton">Agregar</button>
+    <div className="btn_group">
+    <Link  to={`/Forms`}> 
+    <button  className= "btn-Nav">Agregar</button>
     </Link>
-    <button className= "searchButton">About</button>
+   
+    <Link  to={`/Forms`}> 
+    <button  className= "btn-Nav">Orden</button>
+    </Link>
+    <Link  to={`/About`}>
+    <button  className= "btn-Nav">About</button>
+    </Link>
+    </div>
     </nav>
 }
 export default Navbar;

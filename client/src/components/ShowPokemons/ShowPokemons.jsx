@@ -9,19 +9,34 @@ import "./ShowPokemons.css"
 const ShowPokemons = ()=>{
 
  const allPokemons = useSelector((state)=> state.pokemons)
+ const allTypes = useSelector((state)=> state.types)
  const [page, setPage] = useState(0)
-
-
- //---------deberia venir el filter------------//
-
-// let arregloF=allPokemons.map(el => el.types.includes("grass"))
-// console.log("este es" + arregloF)
+ const [filtro, setFiltro]= useState("")
  
- const pagination = () =>{
-   if(page===0) {return allPokemons.slice(page, page + 9)
-}  else{
-    return allPokemons.slice(page, page +12 )
+//--------------filtro--------------//
+ function onChange(e){
+  setFiltro(e.target.value)
+ }
+ 
+function onSubmit(e){
+e.preventDefault();
+
+setFiltro("");
+
 }
+ 
+ //------------Paginado--------------//
+ const pagination = () =>{
+   if(filtro===""){
+    if(page===0) {return allPokemons.slice(page, page + 9)
+    }  else{
+       return allPokemons.slice(page, page +12 )
+    }
+  
+  }else{
+    let arregloF = allPokemons.filter(el => el.types.includes(filtro))
+    return arregloF.slice(page, page + 9)
+  }
 }
 
 const nextPage = ()=>{
@@ -49,9 +64,12 @@ const prevPage = ()=>{
 return (
   <div>
     <div>
-
-      <button className="btn-primary" onClick={prevPage} >Anterior</button>
-      <button className="btn-primary" onClick={nextPage}>Siguiente</button>
+   
+    <select  className= "btn-paginado" onChange={onChange}>{allTypes.map((el) => {
+          return <option value={el.name}>{el.name}</option>})}</select>
+    <button className="btn-paginado" onClick={onSubmit} >Quitar Filtros</button>
+      <button className="btn-paginado" onClick={prevPage} >Anterior</button>
+      <button className="btn-paginado" onClick={nextPage}>Siguiente</button>
       </div>
       <div className="cardsPokemons">
     {
@@ -61,7 +79,7 @@ return (
           <Card
             image={poke?.image}
             name={poke?.name}
-            type={poke?.types}
+            types={poke?.types}
           /> 
         </Link>
             )

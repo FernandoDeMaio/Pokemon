@@ -3,6 +3,7 @@ const { Router } = require("express");
 const { v4: uuidv4 } = require('uuid');
 const router = Router();
 const { Pokemon, Tipo } = require ("../db");
+const { Op } = require("sequelize");
 
 
 router.get('/', async function (req, res){
@@ -26,7 +27,7 @@ router.get('/', async function (req, res){
                 }
              )   
                     
-                let respuesta = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=2&offset=0");
+                let respuesta = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40&offset=0");
                 let pokemonApi = await Promise.all(respuesta.data.results.map(async (el)=>{
                     
                     const pokemonUrl = await axios.get(el.url);
@@ -50,10 +51,10 @@ router.get('/', async function (req, res){
             }else{
             
           
-                let busqueda= await Pokemon.findOne({where: {name: name}});
-            
-                if(busqueda){
+                let busqueda= await Pokemon.findOne({where:{name : name}}, {include:{Tipo}});
+                 if(busqueda){
                     try{
+                        
                         res.json(busqueda);
 
                     }catch(error){
@@ -99,13 +100,26 @@ router.get('/:id', async (req, res)=> {
 
         try{
 
-            let pokemonDbId = await Pokemon.findOne({where: { id: id }});
-            pokemonDbId && res.send(pokemonDbId)
-
+            let pokemonDbId = await Pokemon.findByPk(id,{include:[Tipo]});
+            
+            let pokemonId ={
+                id: pokemonDbId.id,
+                name: pokemonDbId.name,
+                image: pokemonDbId.image,
+                types: pokemonDbId.tipos.map(el=> el.name),
+                hp: pokemonDbId.hp,
+                atack: pokemonDbId.atack,
+                defense: pokemonDbId.defense,
+                speed: pokemonDbId.speed,
+                height:pokemonDbId.height,
+                weight:pokemonDbId.weight, 
+            }
+            pokemonId && res.send(pokemonId)
+            
         }catch(error){
             res.status(400).send("No se encuentra el Pokemon");
         }
-
+       
     }else{
 
         try{
