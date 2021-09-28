@@ -1,17 +1,16 @@
-.Landing{
 
-background-image:url("../../complements/images/Fondo.png");
-background-repeat: no-repeat;
-background-size: cover;
-height: 900px;
-}
 .searchButton{
-height: 400px;
-width: 400px;
-margin-top: auto;
+margin: 10rem auto;
+height: 300px;
+width: 300px;
 border-radius: 100%;
 background-image: url("../../complements/images/Pokebola.png");
 background-size:cover;
+box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.700);
+}
 
+.searchButton:hover{
+    transform: rotate(360deg);
+    transition: 2s;
 }
 

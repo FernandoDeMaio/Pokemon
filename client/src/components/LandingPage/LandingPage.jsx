@@ -6,9 +6,9 @@ const LandingPage = () =>{
     
     return (
     
-        <div key="botonLanding" className="Landing">
+        <div className="Landing">
           <Link to={`/home`}>
-        <button className= "searchButton">Inicio</button>
+        <button className= "searchButton"></button>
        </Link>
         </div>
     )

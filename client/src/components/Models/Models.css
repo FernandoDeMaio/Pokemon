@@ -1,6 +1,6 @@
 .contenedor-detalle{
     overflow: hidden;
-    
+    background: rgba(125, 126, 125, 0.535);
     width: 60%;
     border-radius: 30px;
     margin: 50px auto;

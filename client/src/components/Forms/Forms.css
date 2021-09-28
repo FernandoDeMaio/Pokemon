@@ -1,0 +1,33 @@
+.Form-Pokemon{
+    background: rgba(125, 126, 125, 0.535);
+    padding: 20px 60px;
+    border-radius: 40px;
+    color: white;
+    display:table;
+    align-items: center;
+    width: 30%;
+    margin: auto auto;
+    }
+
+
+.btn-busqueda{
+    margin: 10px 10px;
+    height: 40px;
+    width:  150px;
+    border-radius: 10px;  
+    background-color: rgb(93, 5, 233);
+    color: white;
+    font-family: PokemonClassic;
+    border-color:grey;
+  }
+  
+  .input-Form{
+      text-align: center;
+    width: 100%;
+    margin: 15px 0;
+    height: 25px;
+    
+    border:inherit;
+    border-radius: 10px;
+    font-family: PokemonClassic;
+    }

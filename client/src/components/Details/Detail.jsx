@@ -10,8 +10,8 @@ const Detail = () => {
 
     const dispatch = useDispatch();
     const pokeDetail = useSelector(state => state.pokemonsDetail)
-    const { id } = useParams();
-    console.log(pokeDetail)
+    const { id } = useParams(); //para usar el parametro de la url
+   
     useEffect(() => {
         dispatch(getPokemonsDetail(id));
       },[]);

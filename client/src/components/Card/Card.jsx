@@ -1,18 +1,25 @@
 import React from "react";
 import "./Card.css"
-const henry = "../../complements/images/henry.jpg"
 
-const Card = ({ name, types, image }) => {
+const Card = ({ name, atack, types, image }) => {
   return (
+
     <div className="card">
       
-      <figure>
         <img className="img-card"src={image} alt="" />
-      </figure>
-           
+     <div className="card-texto">
+           <ul className="ul-Card">
+    <li>
       <h5 className="h5Card">{name}</h5>
+      </li>
+    <li>
+      <span className="spanCard">Atack: {atack}</span>
+    </li>
+    <li>
       <span className="spanCard">{types+" "}</span>
-      
+    </li>   
+           </ul>
+      </div>
     </div>
   );
 };

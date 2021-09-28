@@ -2,8 +2,8 @@
     margin: auto auto;
     display: inline-table;
     align-items: center;
-    width: 80%;
-    columns:6;
+    width: 85%;
+    padding-bottom:18px ;
     }
 
 
@@ -16,4 +16,42 @@
         color: white;
         font-family: PokemonClassic;
         border-color:grey;
+      }
+
+      .btn-paginadoL{
+        margin: 20px;
+        margin-top: 100px;
+        height: 350px;
+        width:  60px;
+        border-radius: 10px;  
+        background-color: rgba(92, 5, 233, 0.385);
+        border:unset ;
+        color: white;
+        font-family: PokemonClassic;
+        border-color:grey;
+        float:left;
+        background-position-y: unset;
+        font-size: 40px;
+        color: rgba(255, 255, 255, 0.439);
+      }
+      .btn-paginadoR{
+        margin: 20px;
+        margin-top: 100px;
+        height: 350px;
+        width:  60px;
+        border-radius: 10px;  
+        background-color: rgba(92, 5, 233, 0.385);
+        border:unset ;
+        color: white;
+        font-family: PokemonClassic;
+        border-color:grey;
+        float:right;
+        background-position-y: unset;
+        font-size: 40px;
+        color: rgba(255, 255, 255, 0.439);
+      }
+
+      .PaginadoNav{
+        overflow: hidden;
+
       }

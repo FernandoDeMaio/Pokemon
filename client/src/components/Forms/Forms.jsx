@@ -1,25 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { getTypes } from "../../actions"
-
-
+import { useSelector } from "react-redux";
+import "./Forms.css"
 
 
 const Forms = () => {
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTypes())
-  },[]);
 
   const tipo = useSelector((state) => state.types);
   const [tipos, setTipos] = useState([]);
   console.log(tipos)
   const [pokemon, setPokemons] = useState({
     name: "",
-    image:"",
+    image: "",
     hp: "",
     atack: "",
     defense: "",
@@ -47,9 +41,11 @@ console.log(pokemon)
   
   return (
     <section>
-      <form onSubmit={handleSubmit}>
+      <form className="Form-Pokemon" onSubmit={handleSubmit}>
+        <h1>Cargá tu Pokémon</h1>
         <label>Name</label>
         <input
+        className="input-Form"
           type="text"
           name="name"
           value={pokemon.name}
@@ -58,22 +54,17 @@ console.log(pokemon)
 
         <label>Hp</label>
         <input
+        className="input-Form"
           type="text"
           name="hp"
           value={pokemon.hp}
           onChange={onInputChange}
         />
 
-        <label>Weight</label>
-        <input
-          type="text"
-          name="weight"
-          value={pokemon.weight}
-          onChange={onInputChange}
-        />
-
+       
           <label>Atack</label>
         <input
+        className="input-Form"
           type="text"
           name="atack"
           value={pokemon.atack}
@@ -82,6 +73,7 @@ console.log(pokemon)
 
              <label>Defence</label>
         <input
+        className="input-Form"
           type="text"
           name="defence"
           value={pokemon.defence}
@@ -90,6 +82,7 @@ console.log(pokemon)
 
              <label>Speed</label>
         <input
+        className="input-Form"
           type="text"
           name="speed"
           value={pokemon.speed}
@@ -98,14 +91,26 @@ console.log(pokemon)
 
         <label>Height</label>
         <input
+        className="input-Form"
           type="text"
           name="height"
           value={pokemon.height}
           onChange={onInputChange}
         />
 
+        <label>Weight</label>
+        <input
+        className="input-Form"
+          type="text"
+          name="weight"
+          value={pokemon.weight}
+          onChange={onInputChange}
+        />
+
+
         <label>image</label>
         <input
+        className="input-Form"
           type="text"
           name="image"
           value={pokemon.image}
@@ -113,13 +118,13 @@ console.log(pokemon)
         />
 
         <label>Type</label>
-        <select name="tipo" onChange={onInputTypes}>
+        <select className="btn-busqueda"name="tipo" onChange={onInputTypes}>
           {tipo.map((el) => {
             return <option value={el.name}>{el.name}</option>;
           })}
         </select>
-
-        <input type="submit" />
+          <br/>
+        <input className="btn-busqueda" type="submit" />
       </form>
 {/* {tipo.map(el => {
  return( <span>{el}</span>)

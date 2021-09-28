@@ -15,7 +15,7 @@ const SearchBar = ({name, setName})=> {
             }
     
             function OnSubmit(e){
-                console.log("click");
+              
                 e.preventDefault();
              dispatch(getPokemonName(name));
             }

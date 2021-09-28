@@ -16,6 +16,7 @@ function ShowSearch() {
              image={poke.image}
              name={poke.name}
              types={poke.types}
+             atack={poke.atack}
              />
             </Link>
            

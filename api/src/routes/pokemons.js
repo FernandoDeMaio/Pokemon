@@ -5,43 +5,46 @@ const router = Router();
 const { Pokemon, Tipo } = require ("../db");
 const { Op } = require("sequelize");
 
-
+let pokemonApi=[];
 router.get('/', async function (req, res){
     
     const { name } = req.query;
-  
+    
+
             if(!name){
                  // 40 Pokemons desde la api y pokemons BD
                  //try{ 
 
-        
                 let pokeBD = await Pokemon.findAll({include:{model:Tipo}});
                 let pokeBd=pokeBD.map((el)=>{
                     return {
                             id: el.id,
                             name: el.name,
+                            atack: el.atack,
                             image: el.image,
                             types: el.tipos.map(el => el.name)
                            
                     }
                 }
              )   
-                    
-                let respuesta = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40&offset=0");
-                let pokemonApi = await Promise.all(respuesta.data.results.map(async (el)=>{
-                    
-                    const pokemonUrl = await axios.get(el.url);
-                                    obj={
-                                        id : pokemonUrl.data.id,
-                                        name : pokemonUrl.data.name,
-                                        image : pokemonUrl.data.sprites.front_default,
-                                        types : pokemonUrl.data.types.map(el=> el.type.name)
-                                    }
-                                        return obj;
-                }));
-            
+              
+             if(pokemonApi.length===0){
+                let respuesta =  await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40&offset=0");
+                 pokemonApi = await Promise.all(respuesta.data.results.map(async (el)=>{
+                     
+                     const pokemonUrl = await axios.get(el.url);
+                                     obj={
+                                         id : pokemonUrl.data.id,
+                                         name : pokemonUrl.data.name,
+                                         atack: pokemonUrl.data.stats[1].base_stat,
+                                         image : pokemonUrl.data.sprites.front_default,
+                                         types : pokemonUrl.data.types.map(el=> el.type.name)
+                                     }
+                                         return obj;
+                 }));
+             
+             }
                 pokeBdApi= pokemonApi.concat(pokeBd);
-                
                 res.json(pokeBdApi);
                
             // }catch(error){

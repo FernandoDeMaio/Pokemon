@@ -1,4 +1,4 @@
-import {GET_POKEMONS, GET_POKEMONSDETAIL, GET_POKEMONSNAME, GET_TYPES} from "../actions";
+import {GET_POKEMONS, GET_POKEMONSDETAIL, GET_POKEMONSNAME, GET_TYPES, ASCENDING, DESCENDING} from "../actions";
 
  const initialState = {
    pokemons:[],
@@ -14,6 +14,38 @@ const reducer = (state = initialState, action) => {
    case GET_POKEMONSDETAIL: return {...state, pokemonsDetail: action.payload}
    case GET_POKEMONSNAME: return {...state, pokemonsName: action.payload}
    case GET_TYPES: return {...state, types: action.payload}
+   case ASCENDING:
+    if (action.payload === "alphabetic") {
+      return {
+        ...state,
+        pokemons: [...state.pokemons].sort((a, b) =>
+          [a.name] > [b.name]? 1 : -1
+        ),
+      };
+    } else {
+      return {
+        ...state,
+        pokemons: [...state.pokemons].sort((a, b) => {
+               return a.atack > b.atack ? 1 : -1;
+        }),
+      };
+    }
+    case DESCENDING:
+      if (action.payload === "Atack") {
+        return {
+          ...state,
+          pokemons: [...state.pokemons].sort((a, b) =>
+            [a.name] < [b.name]? 1 : -1
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          pokemons: [...state.pokemons].sort((a, b) => {
+                 return a.atack > b.atack ? 1 : -1;
+          }),
+        };
+      }
       default:
      return state 
   }

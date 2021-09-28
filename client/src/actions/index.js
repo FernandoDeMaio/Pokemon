@@ -6,6 +6,8 @@ export const GET_POKEMONS = "GET_POKEMONS"
 export const GET_POKEMONSDETAIL = "GET_POKEMONSDETAIL"
 export const GET_POKEMONSNAME = "GET_POKEMONSNAME"
 export const GET_TYPES ="GET_TYPES"
+export const  ASCENDING = " ASCENDING"
+export const DESCENDING = "DESCENDING"
 
 
 //--------------------Todos los pokemons----------------------//
@@ -57,3 +59,11 @@ export function getTypes (){
             })
     }
     }
+
+    //----------------------Orden-----------------------------//
+    export function orderBy(order, category) {
+        return {
+          type: order === "ascending" ? ASCENDING : DESCENDING,
+          payload: category,
+        };
+      }

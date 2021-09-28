@@ -4,7 +4,7 @@ import Details from "./components/Details/Detail.jsx";
 import { Route, Switch } from "react-router";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getPokemons } from "./actions";
+import { getPokemons, getTypes } from "./actions";
 import Navbar from './components/NavBar/NavBar';
 import LandingPage from './components/LandingPage/LandingPage'
 import Forms from './components/Forms/Forms';
@@ -16,6 +16,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPokemons());
+    dispatch(getTypes());
   },[]);
   
 
