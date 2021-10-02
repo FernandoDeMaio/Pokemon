@@ -28,8 +28,7 @@ function onChangeOrder({target}){
   setOrder(target.value);
   }
 
-  function onSubmitO(e){
-
+function onSubmitO(e){
 dispatch(orderBy(order, category));
 
   }
@@ -90,54 +89,55 @@ const prevPage = ()=>{
   }
   
 }
-
 return (
-  <div>
-    <div>
+  <div  key="div1">
+    <div  key="div2">
      
-    <select  className= "btn-paginado" onChange={onChange}>{allTypes.map((el) => {
-          return <option value={el.name}>{el.name}</option>})}</select>
-    <button className="btn-paginado" onClick={onSubmit}>Quit Filtro</button>
+    <select key="selector1" className="btn-paginado" onChange={onChange}>{allTypes.map((el) => {
+          return <option key={el.name} value={el.name}>{el.name}</option>})}</select>
+    <button key="boton1" className="btn-paginado" onClick={onSubmit}>Quit Filtro</button>
     
     {/*-----------------APIBD-----------------------  */}
-    <select className="btn-paginado" onChange={onChange} >
-    <option value="">Todos</option>
-    <option value="API">Pokémons</option>
-    <option value="BD">Atrapados</option>
+    <select  key="selector2" className="btn-paginado" onChange={onChange} >
+    <option key="option1" value="">Todos</option>
+    <option key="option2" value="API">Pokémons</option>
+    <option key="option3" value="BD">Atrapados</option>
     </select>
 
      {/*-------------------MayorAMenor---------------------  */}
-    <select className="btn-paginado" onChange={onChangeCategory}>
-      <option value="alphabetic">ABC</option>
-      <option value="atack">Ataque</option>
+    <select key="selectMM" className="btn-paginado" onChange={onChangeCategory}>
+      <option key="opc1" value="alphabetic">ABC</option>
+      <option key="opc2" value="atack">Ataque</option>
     </select>
-    <select className="btn-paginado" onChange={onChangeOrder}>
-      <option value="ascending">Ascendente</option>
-      <option value="descending">Descending</option>
+    <select key="selectAD"className="btn-paginado" onChange={onChangeOrder}>
+      <option key="opc3"value="ascending">Ascendente</option>
+      <option key="opc4" value="descending">Descending</option>
     </select>
-    <button  className= "btn-paginado" onClick={onSubmitO}>Orden</button>
+    <button key="boton2" className= "btn-paginado" onClick={onSubmitO}>Orden</button>
    
    
    {/*-------------------Paginado---------------------  */}
    </div> 
-<div className="PaginadoNav">
-      <div>
-      <button className="btn-paginadoL" onClick={prevPage} >◄</button>
+<div key="paginado" className="PaginadoNav">
+      <div  key="div3">
+      <button  key="btn-izq" className="btn-paginadoL" onClick={prevPage} >◄</button>
       </div>
 
-      <div>
-      <button className="btn-paginadoR" onClick={nextPage}>►</button>
+      <div  key="div4">
+      <button key="btn-der" className="btn-paginadoR" onClick={nextPage}>►</button>
       </div>
 
-      <div className="cardsPokemons">
+      <div  key="div5" className="cardsPokemons">
     {
         pagination()?.map((poke) => {
             return(
         <Link className="Link" to={`/pokeDetail/${poke.id}`}>
           <Card
+            key={poke?.id}
             image={poke?.image}
             name={poke?.name}
             atack={poke?.atack}
+            defence={poke?.defence}
             types={poke?.types}
           /> 
         </Link>

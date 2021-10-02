@@ -9,7 +9,7 @@ const SearchBar = ({name, setName})=> {
      
         
             function OnChange(e){
-                
+               
                 setName(e.target.value);
                 
             }

@@ -21,6 +21,7 @@ router.get('/', async function (req, res){
                             id: el.id,
                             name: el.name,
                             atack: el.atack,
+                            defence:el.defence,
                             image: el.image,
                             types: el.tipos.map(el => el.name)
                            
@@ -37,6 +38,7 @@ router.get('/', async function (req, res){
                                          id : pokemonUrl.data.id,
                                          name : pokemonUrl.data.name,
                                          atack: pokemonUrl.data.stats[1].base_stat,
+                                         defence:pokemonUrl.data.stats[2].base_stat,
                                          image : pokemonUrl.data.sprites.front_default,
                                          types : pokemonUrl.data.types.map(el=> el.type.name)
                                      }
@@ -44,7 +46,7 @@ router.get('/', async function (req, res){
                  }));
              
              }
-                pokeBdApi= pokemonApi.concat(pokeBd);
+                let pokeBdApi= pokemonApi.concat(pokeBd);
                 res.json(pokeBdApi);
                
             // }catch(error){
@@ -153,27 +155,35 @@ router.get('/:id', async (req, res)=> {
  router.post('/', async (req, res)=>{
     const {name, image, hp, atack, defense, speed, height, weight, types}= req.body;
     try{
-        const PokCreate= await Pokemon.create({
-           id: uuidv4(), 
-           name,
-           image,
-           hp,
-           atack,
-           defense,
-           speed,
-           height,
-           weight,
-           
-        },{ fields: ["id","name","image","hp","atack","defense","speed","height","weight"] })
-        
-        for(let i=0; i<types.length;i++){
+            
+            if( await Pokemon.findOne({where: {name: name}})){
 
-            let idTipe= await Tipo.findOne({where:{name: types[i]}})
-            await PokCreate.addTipo(idTipe);
-        }
-        PokCreate && res.json(PokCreate);
+                res.status(400).send("No se puede cargar el Pokémon");
+            }else{
+
+                const PokCreate= await Pokemon.create({
+                   id: uuidv4(), 
+                   name,    
+                   image,
+                   hp,
+                   atack,
+                   defense,
+                   speed,
+                   height,
+                   weight,
+                   
+                },{ fields: ["id","name","image","hp","atack","defense","speed","height","weight"] })
+                
+                for(let i=0; i<types.length;i++){
+        
+                    let idTipe= await Tipo.findOne({where:{name: types[i]}})
+                    await PokCreate.addTipo(idTipe);
+                }
+                PokCreate && res.json(PokCreate);
+
+            }
     }catch(error){
-        res.status(400);
+        res.status(400).send("No se puede cargar el Pokémon");
     }
  });
 

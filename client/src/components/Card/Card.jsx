@@ -1,7 +1,7 @@
 import React from "react";
 import "./Card.css"
 
-const Card = ({ name, atack, types, image }) => {
+const Card = ({ name, atack, types, image, defence }) => {
   return (
 
     <div className="card">
@@ -16,8 +16,12 @@ const Card = ({ name, atack, types, image }) => {
       <span className="spanCard">Atack: {atack}</span>
     </li>
     <li>
+      <span className="spanCard">Defense: {defence+" "}</span>
+    </li>   
+    <li>
       <span className="spanCard">{types+" "}</span>
     </li>   
+    
            </ul>
       </div>
     </div>

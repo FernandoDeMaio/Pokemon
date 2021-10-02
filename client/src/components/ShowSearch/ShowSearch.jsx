@@ -13,10 +13,12 @@ function ShowSearch() {
         {
             <Link className="Link" to={`/pokeDetail/${poke.id}`}>
              <Card
+             key={poke.id}
              image={poke.image}
              name={poke.name}
              types={poke.types}
              atack={poke.atack}
+             defence={poke.defence}
              />
             </Link>
            

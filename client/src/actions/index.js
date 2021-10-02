@@ -6,8 +6,8 @@ export const GET_POKEMONS = "GET_POKEMONS"
 export const GET_POKEMONSDETAIL = "GET_POKEMONSDETAIL"
 export const GET_POKEMONSNAME = "GET_POKEMONSNAME"
 export const GET_TYPES ="GET_TYPES"
-export const  ASCENDING = " ASCENDING"
-export const DESCENDING = "DESCENDING"
+export const  ASCENDING=" ASCENDING"
+export const DESCENDING=" DESCENDING"
 
 
 //--------------------Todos los pokemons----------------------//
@@ -39,7 +39,7 @@ export function getPokemonsDetail(id){
 export function getPokemonName (name){
 return dispatch =>{
 
-    return axios.get(`http://localhost:3001/pokemons/?name=${name}`).then(obj =>{
+    return axios.get(`http://localhost:3001/pokemons/?name=${name.toLowerCase()}`).then(obj =>{
     dispatch({
         type: GET_POKEMONSNAME,
         payload: obj.data

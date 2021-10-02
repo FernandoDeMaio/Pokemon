@@ -19,7 +19,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: [...state.pokemons].sort((a, b) =>
-          [a.name] > [b.name]? 1 : -1
+          [a.name].join().toLowerCase() > [b.name].join().toLowerCase()
+            ? 1
+            : -1
         ),
       };
     } else {
@@ -31,18 +33,20 @@ const reducer = (state = initialState, action) => {
       };
     }
     case DESCENDING:
-      if (action.payload === "Atack") {
+      if (action.payload === "alphabetic") {
         return {
           ...state,
           pokemons: [...state.pokemons].sort((a, b) =>
-            [a.name] < [b.name]? 1 : -1
+            [a.name].join().toLowerCase() < [b.name].join().toLowerCase()
+              ? 1
+              : -1
           ),
         };
       } else {
         return {
           ...state,
           pokemons: [...state.pokemons].sort((a, b) => {
-                 return a.atack > b.atack ? 1 : -1;
+                 return a.atack < b.atack ? 1 : -1;
           }),
         };
       }

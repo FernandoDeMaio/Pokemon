@@ -3,8 +3,8 @@
     padding: 20px 60px;
     border-radius: 40px;
     color: white;
-    display:table;
-    align-items: center;
+    display: block;
+    
     width: 30%;
     margin: auto auto;
     }
@@ -30,4 +30,21 @@
     border:inherit;
     border-radius: 10px;
     font-family: PokemonClassic;
+    }
+
+    .danger{
+      text-align: center;
+      width: 100%;
+      margin: 15px 0;
+      height: 25px;
+      background-color: rgb(155, 103, 103);
+      border:rgb(118, 91, 91);
+      border-radius: 10px;
+      font-family: PokemonClassic;
+    }
+
+    .spanAlert{
+      
+      font-size: 12px;
+
     }
